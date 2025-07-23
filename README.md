@@ -12,3 +12,15 @@ The candidates are selected and then primarily selected for aid, until finally s
 
 *Language:* Python
 *Libraries:* Streamlit, Tensorflow, Pytorch
+
+
+## Model used:
+
+I used a SAINT model, leveraging Self-Attention heads and Transformers
+
+## How to use
+
+> Download the app.py file
+> Assuming VS Code, open the folder containing the file
+> Open terminal, terminal destination should be the same folder as the app.py folder location
+> Input streamlit run app.py

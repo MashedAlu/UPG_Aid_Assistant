@@ -326,9 +326,9 @@ def main():
         marital_status = st.selectbox("Marital Status", ["Single", "Married", "Divorced", "Widowed"])
         
     with col2:
-        migrant_status = st.checkbox("Are you a migrant?")
+        migrant_status = st.selectbox("Are you a migrant?", ['No','Yes'])
         migrant_tenure = 0
-        if migrant_status:
+        if migrant_status == 'Yes':
             migrant_tenure = st.number_input("Migrant Tenure (years)", min_value=0, value=0)
         household_size = st.number_input("Number of people in household", min_value=1, value=4)
     
@@ -337,15 +337,15 @@ def main():
     col1, col2 = st.columns(2)
     
     with col1:
-        has_disability = st.checkbox("Is there anyone with disability in household?")
+        has_disability = st.selectbox("Is there anyone with disability in household?",['No','Yes'])
         disabled_count = 0
-        if has_disability:
+        if has_disability == 'Yes':
             disabled_count = st.number_input("Number of disabled people", min_value=1, value=1)
     
     with col2:
-        has_chronic_illness = st.checkbox("Is there anyone chronically ill in household?")
+        has_chronic_illness = st.selectbox("Is there anyone chronically ill in household?",['No','Yes'])
         chronic_ill_count = 0
-        if has_chronic_illness:
+        if has_chronic_illness = 'Yes':
             chronic_ill_count = st.number_input("Number of chronically ill people", min_value=1, value=1)
     
     # Household Demographics Section
@@ -353,20 +353,20 @@ def main():
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        has_under_5 = st.checkbox("Are there people under 5 years old?")
+        has_under_5 = st.selectbox("Are there people under 5 years old?",['No','Yes'])
     with col2:
-        has_over_50 = st.checkbox("Are there people over 50 years old?")
+        has_over_50 = st.selectbox("Are there people over 50 years old?",['No','Yes'])
     with col3:
-        has_18_to_50 = st.checkbox("Are there people between 18-50 years old?")
+        has_18_to_50 = st.selectbox("Are there people between 18-50 years old?",['No','Yes'])
     
     # Financial Information Section
     st.markdown("#### 💰 Financial Information")
     
     # Assets
-    has_assets = st.checkbox("Does the family have assets?")
+    has_assets = st.selectbox("Does the family have assets?",['No','Yes'])
     asset_count = 0
     asset_value = 0
-    if has_assets:
+    if has_assets == 'Yes':
         col1, col2 = st.columns(2)
         with col1:
             asset_count = st.number_input("Number of assets", min_value=1, value=1)
@@ -374,9 +374,9 @@ def main():
             asset_value = st.number_input("Total value of assets (BDT)", min_value=0.0, value=0.0, format="%.2f")
     
     # Savings
-    has_savings = st.checkbox("Does the family have savings?")
+    has_savings = st.selectbox("Does the family have savings?",['No','Yes'])
     monthly_savings = 0
-    if has_savings:
+    if has_savings == 'Yes':
         monthly_savings = st.number_input("Amount saved per month (BDT)", min_value=0.0, value=0.0, format="%.2f")
     
     # Income
@@ -390,21 +390,21 @@ def main():
     st.markdown("#### 📋 Loan Information")
     
     # Past loans
-    has_past_loans = st.checkbox("Have you taken loans in the past?")
+    has_past_loans = st.selectbox("Have you taken loans in the past?",['No','Yes'])
     loan_count = 0
-    if has_past_loans:
+    if has_past_loans == 'Yes':
         loan_count = st.number_input("Number of loans taken", min_value=1, value=1)
     
     # Running loans
-    has_running_loans = st.checkbox("Do you have running loans?")
+    has_running_loans = st.selectbox("Do you have running loans?",['No','Yes'])
     outstanding_amount = 0
-    if has_running_loans:
+    if has_running_loans == 'Yes':
         outstanding_amount = st.number_input("Outstanding amount (BDT)", min_value=0.0, value=0.0, format="%.2f")
     
     # Prediction button
     st.markdown("---")
     
-    if st.button("🔮 Predict Aid Approval", type="primary", use_container_width=True):
+    if st.button("Predict Aid Approval", type="primary", use_container_width=True):
         if not name:
             st.error("Please enter the applicant's name.")
             return
@@ -457,8 +457,8 @@ def main():
             st.metric("💰 Monthly Income", f"BDT {monthly_income:,.2f}")
         
         with col3:
-            st.metric("🏠 Has Assets", "Yes" if has_assets else "No")
-            st.metric("📋 Has Loans", "Yes" if has_past_loans else "No")
+            st.metric("🏠 Has Assets", "Yes" if has_assets == 'Yes' else "No")
+            st.metric("📋 Has Loans", "Yes" if has_past_loans == 'Yes' else "No")
         
         # Prediction result
         if prediction == 1:  # Aid approved
@@ -564,4 +564,5 @@ def main():
             )
 
 if __name__ == "__main__":
+
     main()
